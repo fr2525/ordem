@@ -1,8 +1,8 @@
-    <!-- Footer -->
+      <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; System ordem <?php echo date('Y') ?> &nbsp | by Reinert Informatica</span>
+            <span>Copyright &copy; Ordem <?php  echo date('Y') ?>&nbsp | by FR Systemas</span>
           </div>
         </div>
       </footer>
@@ -39,7 +39,7 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="<?php echo base_url('public/vendor/jquery/jquery.min.js') ?> "></script>
+  <script src="<?php echo base_url('public/vendor/jquery/jquery.min.js') ?>"></script>
   <script src="<?php echo base_url('public/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 
   <!-- Core plugin JavaScript-->
@@ -48,14 +48,16 @@
   <!-- Custom scripts for all pages-->
   <script src="<?php echo base_url('public/js/sb-admin-2.min.js') ?>"></script>
 
-    <?php if(isset($scripts)) : ?>
-        <?php foreach($scripts as $script) : ?>
-            <!-- Custom scripts for this module-->
-            <script src="<?php echo base_url('public/' . $script) ?>"></script>
+  <?php if(isset($scripts)) : ?>
 
-        <?php endforeach; ?> 
-    <?php endif;    ?>
+    <?php foreach($scripts as $script) : ?>
+
+      <script src="<?php echo base_url('public/' .$script); ?>"></script>
+
+    <?php  endforeach ?>
+  <?php endif?>
 
 </body>
 
 </html>
+

@@ -862,10 +862,6 @@ class Ion_auth_model extends CI_Model
 
 		$id = $this->db->insert_id($this->tables['users'] . '_id_seq');
 
-		if(!$id) {
-			return FALSE;
-		}
-
 		// add in groups array if it doesn't exists and stop adding into default group if default group ids are set
 		if (isset($default_group->id) && empty($groups))
 		{
@@ -1026,9 +1022,7 @@ class Ion_auth_model extends CI_Model
 			}
 		}
 
-		$session_hash = $this->session->userdata('ion_auth_session_hash');
-
-		return (bool)$session_hash && $session_hash === $this->config->item('session_hash', 'ion_auth');
+		return (bool)$this->session->userdata('identity');
 	}
 
 	/**
@@ -1782,6 +1776,8 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('pre_update_user');
 
+		$user = $this->user($id)->row();
+
 		$this->db->trans_begin();
 
 		if (array_key_exists($this->identity_column, $data) && $this->identity_check($data[$this->identity_column]) && $user->{$this->identity_column} !== $data[$this->identity_column])
@@ -1804,7 +1800,6 @@ class Ion_auth_model extends CI_Model
 			{
 				if( ! empty($data['password']))
 				{
-					$user = $this->user($id)->row();
 					$data['password'] = $this->hash_password($data['password'], $user->{$this->identity_column});
 					if ($data['password'] === FALSE)
 					{
@@ -1824,7 +1819,7 @@ class Ion_auth_model extends CI_Model
 		}
 
 		$this->trigger_events('extra_where');
-		$this->db->update($this->tables['users'], $data, ['id' => $id]);
+		$this->db->update($this->tables['users'], $data, ['id' => $user->id]);
 
 		if ($this->db->trans_status() === FALSE)
 		{
@@ -1943,13 +1938,12 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('pre_set_session');
 
 		$session_data = [
-		    'identity'                 => $user->{$this->identity_column},
-		    $this->identity_column     => $user->{$this->identity_column},
-		    'email'                    => $user->email,
-		    'user_id'                  => $user->id, //everyone likes to overwrite id so we'll use user_id
-		    'old_last_login'           => $user->last_login,
-		    'last_check'               => time(),
-		    'ion_auth_session_hash'    => $this->config->item('session_hash', 'ion_auth'),
+		    'identity'             => $user->{$this->identity_column},
+		    $this->identity_column => $user->{$this->identity_column},
+		    'email'                => $user->email,
+		    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
+		    'old_last_login'       => $user->last_login,
+		    'last_check'           => time(),
 		];
 
 		$this->session->set_userdata($session_data);
@@ -2005,8 +1999,7 @@ class Ion_auth_model extends CI_Model
 				set_cookie([
 					'name'   => $this->config->item('remember_cookie_name', 'ion_auth'),
 					'value'  => $token->user_code,
-					'expire' => $expire,
-					'httponly' => TRUE,
+					'expire' => $expire
 				]);
 
 				$this->trigger_events(['post_remember_user', 'remember_user_successful']);

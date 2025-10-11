@@ -25,7 +25,7 @@
             </div>
             <div class="card-body">
 
-                <form>
+                <form method="POST" name="form_edit">
                   <div class="form-group row">
                       <div class="col-md-4">
                         <label >Name</label>
@@ -38,6 +38,7 @@
                         <input type="text" class="form-control" name="last_name" placeholder="Sobrenome" value="<?php echo $usuario->last_name; ?>">
                         <small id="emailHelp" class="form-text">We'll never share your email with anyone else.</small>
                       </div>
+
                       <div class="col-md-4">
                         <label >Email&nbsp(login)</label>
                         <input type="email" class="form-control" name="email" placeholder="Seu email" value="<?php echo $usuario->email; ?>">
@@ -49,6 +50,12 @@
                   <div class="form-group row">
 
                       <div class="col-md-4">
+                        <label >Usuário</label>
+                        <input type="text" class="form-control" name="username" placeholder="Seu usuário" value="<?php echo $usuario->username; ?>">
+                        <small id="emailHelp" class="form-text">We'll never share your email with anyone else.</small>
+                      </div>
+
+                      <div class="col-md-4">
                         <label>Ativo</label>
 
                         <select class="form-control" name="active">
@@ -57,17 +64,31 @@
                         </select>
                     </div>
 
+                    <div class="col-md-4">
+                        <label>Perfil</label>
+
+                        <select class="form-control" name="perfil_usuario">
+                            <option value="0" <?php echo ($perfil_usuario->id == 0) ? 'selected' : '' ?>>Vendedor</option>
+                            <option value="1" <?php echo ($perfil_usuario->id == 1) ? 'selected' : '' ?>>Administrador</option>
+                        </select>
+                    </div>
                   </div>
 
                   <div class="form-group row">
-                      <label for="exampleInputPassword1" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1">
+                   <div class="col md-4">
+                      <label>Senha</label>
+                      <input type="password" class="form-control" name="password" placeholder="Sua senha" value="">
+                      <small id="emailHelp" class="form-text">We'll never share your email with anyone else.</small>
                     </div>
-                    <div class="mb-3 form-check">
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    <div class="col md-6">
+                    <label>Confirme</label>
+                    <input type="password" class="form-control" name="password1" placeholder="Confirme a sua senha" value="">
+                    <small id="emailHelp" class="form-text">We'll never share your email with anyone else.</small>
+
+                    <input type="hidden" name="usuario_id" value="<?php echo $usuario->id ?>">
+                   </div>
                   </div>
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary">Salvar</button>
                 </form>
 
             </div>

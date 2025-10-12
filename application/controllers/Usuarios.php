@@ -41,19 +41,7 @@ class Usuarios extends CI_Controller {
             exit('Usuário não encontrado');
         }
         else {
-
-            $data = array(
-                'titulo' => 'Editar usuário',
-                'usuario' => $this->ion_auth->user($usuario_id)->row(),
-                'perfil_usuario' =>  $this->ion_auth->get_users_groups($usuario_id)->row(),
-            );
-
-//            echo '<pre>';
-//            print_r($data['perfil']);
-//              print_r($this->input->post());
-//            exit();
-
-            /*
+           /*
              [first_name] => Admin
     [last_name] => istrator
     [email] => admin@admin.com
@@ -66,9 +54,30 @@ class Usuarios extends CI_Controller {
 )
             */
 
+        $this->form_validation->set_rules('first_name','o campo nome','trim|required');
+
+        if($this->form_validation->run()) {
+
+            exit('Validado');
+
+        } else {
+
+             $data = array (
+
+                'titulo' => 'Editar usuário',
+                'usuario' => $this->ion_auth->user($usuario_id)->row(),
+                'perfil_usuario' =>  $this->ion_auth->get_users_groups($usuario_id)->row(),
+            );
+
+
+
             $this->load->view('layout/header', $data);
             $this->load->view('usuarios/edit');
             $this->load->view('layout/footer');
+
+        }
+           
+           
         }
 
     }

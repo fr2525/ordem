@@ -38,9 +38,13 @@ class Usuarios extends CI_Controller {
     public function edit($usuario_id = NULL) {
 
         if(!$usuario_id || !$this->ion_auth->user($usuario_id)->row()) {
-            exit('Usuário não encontrado');
-        }
-        else {
+
+            //exit('Usuário não encontrado');
+            $this->session->set_flashdata('error','Usuário não encontrado');
+            redirect('usuarios');
+
+        } else {
+
            /*
              [first_name] => Admin
     [last_name] => istrator
@@ -52,10 +56,15 @@ class Usuarios extends CI_Controller {
     [password1] => 
     [usuario_id] => 1
 )
-            */
+       */
 
         $this->form_validation->set_rules('first_name','','trim|required');
-
+        $this->form_validation->set_rules('last_name','','trim|required');
+        $this->form_validation->set_rules('email','','trim|required');
+        $this->form_validation->set_rules('username','','trim|required');
+        $this->form_validation->set_rules('password','','trim|required');
+        $this->form_validation->set_rules('password1','','trim|required');
+        
         if($this->form_validation->run()) {
 
             exit('Validado');

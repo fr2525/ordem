@@ -45,8 +45,8 @@ class Usuarios extends CI_Controller {
 
         } else {
 
-           /*
-             [first_name] => Admin
+/*
+    [first_name] => Admin
     [last_name] => istrator
     [email] => admin@admin.com
     [username] => administrator
@@ -55,15 +55,14 @@ class Usuarios extends CI_Controller {
     [password] => 
     [password1] => 
     [usuario_id] => 1
-)
-       */
+*/
 
         $this->form_validation->set_rules('first_name','','trim|required');
         $this->form_validation->set_rules('last_name','','trim|required');
-        $this->form_validation->set_rules('email','','trim|required');
+        $this->form_validation->set_rules('email','','trim|required|valid_email|callback_email_check[email]');
         $this->form_validation->set_rules('username','','trim|required');
-        $this->form_validation->set_rules('password','','trim|required');
-        $this->form_validation->set_rules('password1','','trim|required');
+        $this->form_validation->set_rules('password','Senha','min_length[4]|max_length[100]');
+        $this->form_validation->set_rules('password1','Confirma','matches[password]');
         
         if($this->form_validation->run()) {
 
@@ -89,6 +88,24 @@ class Usuarios extends CI_Controller {
            
         }
 
+    }
+
+    public function email_check($email) {
+
+        $usuario_id = $this->input->post('usuario_id');
+
+        if ($this->core_model->get_by_id('users',array('email = ' => $email , 'id != ' => $usuario_id))) {
+
+            $this->form_validation->set_message('email_check','email ja existente.');
+
+            return FALSE;
+
+        } else {
+
+            return TRUE;
+
+        }
+        
     }
 
 }

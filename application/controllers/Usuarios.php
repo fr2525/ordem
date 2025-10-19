@@ -66,12 +66,50 @@ class Usuarios extends CI_Controller {
         
         if($this->form_validation->run()) {
 
-            exit('Validado');
+
+            $data = elements(
+
+                array(
+                    'first_name',
+                    'last_name',
+                    'email',
+                    'username',
+                    'active',
+                    'password' 
+                   ), $this->input->post()
+            );
+
+            $data = $this->security->xss_clean($data);
+
+            $password = $this->input->post('password');
+
+            if (!$password) {
+                unset($data['password']);
+
+            }
+
+            if($this->ion_auth->update('users', $data))  {
+                
+                $perfil_usuario_db = $this->ion_auth->get_users_groups($usuario_id)->row(); 
+
+                $perfil_usuario_post  = $this->input->post('perfil_usuario');        
+
+                if($perfil_usuario_post != $perfil_usuario_db->id) {
+
+                    $this->ion_auth->remove_from_group($perfil_usuario_db->id, $usuario_id);
+                    $this->ion_auth->add_to_group($perfil_usuario_post, $usuario_id);
+                }
+                
+                $this->session->set_flashdata('sucesso', 'Dados salvos com seucesso');
+
+            } else {
+                 $this->session->set_flashdata('error', 'Erro ao salvar os dados');
+            }
+            redirect('usuarios');
 
         } else {
 
              $data = array (
-
                 'titulo' => 'Editar usuário',
                 'usuario' => $this->ion_auth->user($usuario_id)->row(),
                 'perfil_usuario' =>  $this->ion_auth->get_users_groups($usuario_id)->row(),

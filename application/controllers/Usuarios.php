@@ -88,7 +88,7 @@ class Usuarios extends CI_Controller {
 
             }
 
-            if($this->ion_auth->update('users', $data))  {
+            if($this->ion_auth->update($usuario_id, $data))  {
                 
                 $perfil_usuario_db = $this->ion_auth->get_users_groups($usuario_id)->row(); 
 

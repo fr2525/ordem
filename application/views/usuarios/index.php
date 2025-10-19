@@ -70,7 +70,10 @@
                   <td><?php echo $usuario->id ?></td>
                   <td><?php echo $usuario->username ?></td>
                   <td><?php echo $usuario->email ?></td>
-                  <td><?php echo $usuario->active ?></td>
+                  <td>
+                    <?php echo ($usuario->active == 1 ? '<span class="badge text-bg-primary btn-sm">Sim</span>' : '<span class="badge text-bg-warning btn-sm">Não</span>' ); 
+                     ?>
+                  </td>
                   <td class="text-right">
                     <a title="Editar" href="<?php echo base_url('usuarios/edit/' . $usuario->id) ?>" class="btn btn-primary"><i class="fas fa-user-edit"></i></a>
                     <a title="Excluir" href="" class="btn btn-danger"><i class="fas fa-user-times"></i></a>

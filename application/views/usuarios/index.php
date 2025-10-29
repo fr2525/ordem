@@ -60,6 +60,7 @@
                 <th>#</th>
                 <th>Usuario</th>
                 <th>Login</th>
+                <th>Perfil</th>
                 <th>Ativo</th>
                 <th class="text-right no-sort">Ações</th>
               </tr>
@@ -70,6 +71,7 @@
                   <td><?php echo $usuario->id ?></td>
                   <td><?php echo $usuario->username ?></td>
                   <td><?php echo $usuario->email ?></td>
+                  <td><?php echo ($this->ion_auth->is_admin($usuario->id) ? 'Administrador' : 'Vendedor'); ?></td>
                   <td>
                     <?php echo ($usuario->active == 1 ? '<span class="badge text-bg-primary btn-sm">Sim</span>' : '<span class="badge text-bg-warning btn-sm">Não</span>' ); 
                      ?>

@@ -83,8 +83,8 @@
 
                     <div class="col md-6">
                     <label>Confirme</label>
-                    <input type="password" class="form-control" name="password1" placeholder="Confirme a sua senha" value="">
-                    <?php echo form_error('password', '<small class="form-text text-danger">','</small>'); ?>
+                    <input type="password" class="form-control" name="confirm_password" placeholder="Confirme a sua senha" value="">
+                    <?php echo form_error('confirm_password', '<small class="form-text text-danger">','</small>'); ?>
 
                     <input type="hidden" name="usuario_id" value="<?php echo $usuario->id ?>">
                    </div>

@@ -29,19 +29,19 @@
                   <div class="form-group row">
                       <div class="col-md-4">
                         <label >Name</label>
-                        <input type="text" class="form-control" name="first_name" placeholder="Primeiro nome" value="">
+                        <input type="text" class="form-control" name="first_name" placeholder="Primeiro nome" value="<?php echo set_value('first_name') ?>">
                         <?php echo form_error('first_name', '<small class="form-text text-danger">','</small>'); ?>
                       </div>
 
                       <div class="col-md-4">
                         <label >Sobrenome</label>
-                        <input type="text" class="form-control" name="last_name" placeholder="Sobrenome" value="">
+                        <input type="text" class="form-control" name="last_name" placeholder="Sobrenome" value="<?php echo set_value('lasst_name') ?>">
                         <?php echo form_error('first_name', '<small class="form-text text-danger">','</small>'); ?>
                       </div>
 
                       <div class="col-md-4">
                         <label >Email&nbsp(login)</label>
-                        <input type="email" class="form-control" name="email" placeholder="Seu email" value="">
+                        <input type="email" class="form-control" name="email" placeholder="Seu email" value="<?php echo set_value('email') ?>">
                         <?php echo form_error('email', '<small class="form-text text-danger">','</small>'); ?>
                       </div>
 
@@ -51,7 +51,7 @@
 
                       <div class="col-md-4">
                         <label >Usuário</label>
-                        <input type="text" class="form-control" name="username" placeholder="Seu usuário" value="">
+                        <input type="text" class="form-control" name="username" placeholder="Seu usuário" value="<?php echo set_value('username') ?>">
                         <?php echo form_error('username', '<small class="form-text text-danger">','</small>'); ?>
                       </div>
 
@@ -77,14 +77,14 @@
                   <div class="form-group row">
                    <div class="col md-4">
                       <label>Senha</label>
-                      <input type="password" class="form-control" name="password" placeholder="Sua senha" value="">
+                      <input type="password" class="form-control" name="password" placeholder="Sua senha" value="<?php echo set_value('password') ?>">
                     <?php echo form_error('password', '<small class="form-text text-danger">','</small>'); ?>
                     </div>
 
                     <div class="col md-6">
                     <label>Confirme</label>
-                    <input type="password" class="form-control" name="password1" placeholder="Confirme a sua senha" value="">
-                    <?php echo form_error('password', '<small class="form-text text-danger">','</small>'); ?>
+                    <input type="password" class="form-control" name="confirm_password" placeholder="Confirme a sua senha" value="<?php echo set_value('confirm_password') ?>">
+                    <?php echo form_error('confirm_password', '<small class="form-text text-danger">','</small>'); ?>
 
                     
                    </div>

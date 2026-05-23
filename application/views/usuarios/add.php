@@ -2,7 +2,6 @@
 <?php $this->load->view('layout/sidebar'); ?>
 
 
-
 <!-- Main Content -->
 <div id="content">
 
@@ -35,7 +34,7 @@
 
                       <div class="col-md-4">
                         <label >Sobrenome</label>
-                        <input type="text" class="form-control" name="last_name" placeholder="Sobrenome" value="<?php echo set_value('lasst_name') ?>">
+                        <input type="text" class="form-control" name="last_name" placeholder="Sobrenome" value="<?php echo set_value('last_name') ?>">
                         <?php echo form_error('first_name', '<small class="form-text text-danger">','</small>'); ?>
                       </div>
 
@@ -94,8 +93,6 @@
 
             </div>
           </div>
-
-
 
   </div>
   <!-- /.container-fluid -->

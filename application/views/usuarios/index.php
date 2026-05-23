@@ -17,22 +17,22 @@
 			</ol>
 		</nav>
 
-		<?php if($message = $this->session->flashdata('sucesso')) : ?>
-				<div class="alert alert-success alert-dismissible fade show" role="alert">
-  					<strong><i class="fas fa-smile-wink"></i>&nbsp;<?php echo $message; ?></strong> 
-  						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    						<span aria-hidden="true">&times;</span>
-  						</button>
-				</div>
+		<?php if ($message = $this->session->flashdata('sucesso')) : ?>
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<strong><i class="fas fa-smile-wink"></i>&nbsp;<?php echo $message; ?></strong>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
 		<?php endif; ?>
 
-		<?php if($message = $this->session->flashdata('error')) : ?>
-				<div class="alert alert-warning alert-dismissible fade show" role="alert">
-  					<strong><i class="fas fa-exclamation-triangle"></i>&nbsp;<?php echo $message; ?></strong> 
-  						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    						<span aria-hidden="true">&times;</span>
-  						</button>
-				</div>
+		<?php if ($message = $this->session->flashdata('error')) : ?>
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<strong><i class="fas fa-exclamation-triangle"></i>&nbsp;<?php echo $message; ?></strong>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
 		<?php endif; ?>
 
 		<!-- DataTables Example -->
@@ -48,6 +48,7 @@
 								<th>#</th>
 								<th>Usuario</th>
 								<th>Login</th>
+								<th>Nível</th>
 								<th class="text-center">Ativo</th>
 								<th class="text-right no-sort">Ações</th>
 							</tr>
@@ -58,12 +59,34 @@
 									<td><?php echo $usuario->id ?></td>
 									<td><?php echo $usuario->username ?></td>
 									<td><?php echo $usuario->email ?></td>
+									<td><?php echo ($this->ion_auth->is_admin($usuario->id) ? 'Administrador' : 'Vendedor') ?></td>
 									<td class="text-center pr-4"><?php echo ($usuario->active == 1 ? '<span class="badge badge-info btn-sm">Sim</span>' : '<span class="badge badge-warning btn-sm">Não</span>'); ?></td>
 									<td class="text-right">
 										<a title="Editar" href="<?php echo base_url('usuarios/edit/' . $usuario->id) ?>" class="btn btn-primary"><i class="fas fa-user-edit"></i></a>
-										<a title="Excluir" href="" class="btn btn-danger"><i class="fas fa-user-times"></i></a>
+										<a title="Excluir" href="javascript(void)" data-toggle="modal" data-target="#user-<?php echo $usuario->id; ?>" class="btn btn-sm btn-danger"><i class="fas fa-user-times"></i></a>
 									</td>
 								</tr>
+
+								<!-- Modal de exclusão -->	
+								<div class="modal fade" id="user-<?php echo $usuario->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">Tem certeza da exclusão?</h5>
+												<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">×</span>
+												</button>
+											</div>
+											<div class="modal-body">Para excluir o usuário <?php echo $usuario->username ?> clique em Sim </div>
+											<div class="modal-footer">
+												<button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Não</button>
+												<a class="btn btn-danger btn-sm" href="<?php echo base_url('usuarios/del/').$usuario->id ?>">Sim</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
 							<?php endforeach; ?>
 						</tbody>
 					</table>

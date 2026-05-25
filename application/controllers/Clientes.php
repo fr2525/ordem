@@ -11,7 +11,7 @@ class Clientes extends CI_Controller
         parent::__construct();
 
         if (!$this->ion_auth->logged_in()) {
-            $this->session->set_flashdata('info', 'Sua sessão expirou');
+            $this->session->set_flashdata('info', 'Favor fazer login novamente');
             redirect('login');
         }
     }

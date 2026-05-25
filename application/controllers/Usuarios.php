@@ -8,6 +8,11 @@ class Usuarios extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+
+		if (!$this->ion_auth->logged_in()) {
+			$this->session->set_flashdata('info', 'Favor fazer login novamente');
+			redirect('login');
+		}
 	}
 	public function index()
 	{
@@ -115,14 +120,14 @@ class Usuarios extends CI_Controller
 					$this->input->post()
 				);
 
-				$data = $this->security->xss_clean($data);
+
+				$data = html_escape($data);
 
 				$password = $this->input->post('password');
 
 				if (!$password) {
 					unset($data['password']);
 				}
-
 
 				if ($this->ion_auth->update($usuario_id, $data)) {
 					//if ($this->core_model->update('users', $data)) {
@@ -164,23 +169,23 @@ class Usuarios extends CI_Controller
 	public function del($usuario_id = NULL)
 	{
 		if (!$usuario_id || !$this->ion_auth->user($usuario_id)->row()) {
-            $this->session->set_flashdata('error', 'Usuário não encontrado');
-            redirect('usuarios');
-        }
+			$this->session->set_flashdata('error', 'Usuário não encontrado');
+			redirect('usuarios');
+		}
 
-        if ($this->ion_auth->is_admin($usuario_id)) {
-            $this->session->set_flashdata('error', 'O administrador não pode ser excluído');
-            redirect('usuarios');
-        }
+		if ($this->ion_auth->is_admin($usuario_id)) {
+			$this->session->set_flashdata('error', 'O administrador não pode ser excluído');
+			redirect('usuarios');
+		}
 
-        if ($this->ion_auth->delete_user($usuario_id)) {
-            $this->session->set_flashdata('sucesso', 'Usuário excluído com sucesso');
-            redirect('usuarios');
-        } else {
-            $this->session->set_flashdata('error', 'Erro na exclusão do usuário');
-            redirect('usuarios');
-        }
-	} 
+		if ($this->ion_auth->delete_user($usuario_id)) {
+			$this->session->set_flashdata('sucesso', 'Usuário excluído com sucesso');
+			redirect('usuarios');
+		} else {
+			$this->session->set_flashdata('error', 'Erro na exclusão do usuário');
+			redirect('usuarios');
+		}
+	}
 	public function email_check($email)
 	{
 

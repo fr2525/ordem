@@ -43,11 +43,11 @@ class Core_model extends CI_Model {
 
             if($this->db->affected_rows() > 0) {
 
-                $this->session->setflashdata('sucesso', 'Dados salvos');
+                $this->session->set_flashdata('sucesso', 'Dados salvos');
 
             } else {
 
-                $this->session->setflashdata('error', 'Erro ao salvar dados');
+                $this->session->set_flashdata('error', 'Erro ao salvar dados');
 
             }
         } else {
@@ -62,11 +62,11 @@ class Core_model extends CI_Model {
 
             if($this->db->update($tabela, $data, $condicao) ) {
 
-                $this->session->setflashdata('sucesso', 'Dados salvos');
+                $this->session->set_flashdata('sucesso', 'Dados salvos');
 
             } else {
 
-                $this->session->setflashdata('error', 'Erro ao atualizar os dados');
+                $this->session->set_flashdata('error', 'Erro ao atualizar os dados');
 
             }
         } else {

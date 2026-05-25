@@ -10,7 +10,7 @@ class Sistema extends CI_Controller
         parent::__construct();
 
         if (!$this->ion_auth->logged_in()) {
-            $this->session->set_flashdata('info', 'Sua sessão expirou');
+            $this->session->set_flashdata('info', 'Favor fazer login novamente');
             redirect('login');
         }
     }
@@ -53,6 +53,7 @@ class Sistema extends CI_Controller
                 ),
                 $this->input->post()
             );
+			
             $data = html_escape($data);
 
             $this->core_model->update('sistema', $data, array('sistema_id' => 1));

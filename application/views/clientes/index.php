@@ -97,6 +97,7 @@
                       <div class="modal-footer">
                         <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Não</button>
                         <a class="btn btn-danger btn-sm" href="<?php echo base_url('clientes/del/'.$cliente->cliente_id); ?>">Sim</a>
+												
                       </div>
                     </div>
                   </div>

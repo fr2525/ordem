@@ -63,7 +63,7 @@
 									<td class="text-center pr-4"><?php echo ($usuario->active == 1 ? '<span class="badge badge-info btn-sm">Sim</span>' : '<span class="badge badge-warning btn-sm">Não</span>'); ?></td>
 									<td class="text-right">
 										<a title="Editar" href="<?php echo base_url('usuarios/edit/' . $usuario->id) ?>" class="btn btn-primary"><i class="fas fa-user-edit"></i></a>
-										<a title="Excluir" href="javascript(void)" data-toggle="modal" data-target="#user-<?php echo $usuario->id; ?>" class="btn btn-sm btn-danger"><i class="fas fa-user-times"></i></a>
+										<a title="Excluir" href="javascript(void)" data-toggle="modal" data-target="#user-<?php echo $usuario->id; ?>" class="btn  btn-danger"><i class="fas fa-user-times"></i></a>
 									</td>
 								</tr>
 

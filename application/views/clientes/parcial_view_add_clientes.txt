@@ -1,0 +1,8 @@
+<div class="custom-control custom-radio custom-control-inline mt-2">
+                        <input type="radio" id="pessoa_fisica" name="cliente_tipo" class="custom-control-input" value="1" <?php echo set_checkbox('cliente_tipo', '1') ?> checked="">
+                        <label class="custom-control-label pt-1" for="pessoa_fisica">Pessoa física</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="pessoa_juridica" name="cliente_tipo" class="custom-control-input" value="2" <?php echo set_checkbox('cliente_tipo', '2') ?> >
+                        <label class="custom-control-label pt-1" for="pessoa_juridica">Pessoa jurídica</label>
+                    </div>
